@@ -53,6 +53,7 @@ class Common(Configuration):
     # Apps specific for this project go here.
     LOCAL_APPS = (
         'users',  # custom users app
+        'recommender', # for discover func
         # Your stuff: custom apps go here
     )
 
