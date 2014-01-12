@@ -35,3 +35,5 @@ django-avatar==2.0
 
 
 # Your custom requirements go here
+numpy==1.8.0
+scikit-learn==0.14.1
