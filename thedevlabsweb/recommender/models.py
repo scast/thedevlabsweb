@@ -18,7 +18,7 @@ class RankedQuerySet(QuerySet):
 
 
 class Website(models.Model):
-    url = models.URLField()
+    url = models.URLField(unique=True)
     objects = PassThroughManager.for_queryset_class(RankedQuerySet)()
 
     def __unicode__(self):
@@ -41,3 +41,6 @@ class Score(models.Model):
     user = models.ForeignKey(User, related_name='scores')
     website = models.ForeignKey(Website, related_name='scores')
     value = models.SmallIntegerField(choices=VALUES)
+
+    class Meta:
+        unique_together = ('user', 'website')
