@@ -31,6 +31,14 @@ class Website(models.Model):
         n = self.scores.count()
         return wilson_ci_lower_bound(n, pos)
 
+    @property
+    def serialized(self):
+        return {
+            'status': 'ok',
+            'url': self.url,
+            'score': self.score
+        }
+
 
 class Score(models.Model):
     VALUES = Choices(

@@ -49,10 +49,10 @@
           {% endif %}
         </ul>
         {% if request.user.is_authenticated %}
-        <a href="#" id="sup" class="btn-primary btn">{% trans "Discover" %}</a>
-        <a href="#" id="sup" class="btn-success btn">{% trans "Like" %}</a>
-        <a href="#" id="sup" class="btn-danger btn">{% trans "Dislike" %}</a>
-        <a href="#" id="sup" class="btn-primary btn" data-toggle="modal" data-target="#sup-twitter">{% trans "What's up with..." %}</a>
+        <a href="#" id="discover" class="btn-primary btn my-btn">{% trans "Discover" %}</a>
+        <a href="#" id="discover-like" class="btn-success btn my-btn">{% trans "Like" %}</a>
+        <a href="#" id="discover-dislike" class="btn-danger btn my-btn">{% trans "Dislike" %}</a>
+        <a href="#" id="sup" class="btn-primary btn my-btn" data-toggle="modal" data-target="#sup-twitter">{% trans "What's up with..." %}</a>
         {% endif %}
       </div>
     </div>

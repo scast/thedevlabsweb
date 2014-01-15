@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
-from thedevlabsweb.recommender.views import TwitterSearchView
+from thedevlabsweb.recommender.views import TwitterSearchView, URLAddView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -17,6 +17,8 @@ urlpatterns = patterns('',
         TemplateView.as_view(template_name='pages/home.html'),
         name="home"),
     url(r'^search/$', TwitterSearchView.as_view(), name='search'),
+    url(r'^recommender/add/$',
+        URLAddView.as_view(), name='add_website'),
     url(r'^about/$',
         TemplateView.as_view(template_name='pages/about.html'),
         name="about"),
