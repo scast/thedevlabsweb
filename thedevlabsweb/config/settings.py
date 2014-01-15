@@ -272,6 +272,8 @@ class Common(Configuration):
 
 
     ########## Your common stuff: Below this line define 3rd party libary settings
+    TWITTER_APP_KEY = values.SecretValue()
+    TWITTER_APP_SECRET = values.SecretValue()
 
 
 class Local(Common):
