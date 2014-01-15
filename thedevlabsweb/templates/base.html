@@ -52,7 +52,7 @@
         <a href="#" id="sup" class="btn-primary btn">{% trans "Discover" %}</a>
         <a href="#" id="sup" class="btn-success btn">{% trans "Like" %}</a>
         <a href="#" id="sup" class="btn-danger btn">{% trans "Dislike" %}</a>
-        <a href="#" id="sup" class="btn-primary btn" data-toggle="modal" data-target="#discover-twitter">{% trans "What's up with..." %}</a>
+        <a href="#" id="sup" class="btn-primary btn" data-toggle="modal" data-target="#sup-twitter">{% trans "What's up with..." %}</a>
         {% endif %}
       </div>
     </div>
@@ -73,21 +73,21 @@
 
     {% block modal %}
     {% if request.user.is_authenticated %}
-    <div class="modal fade" id="discover-twitter" tabindex="-1" role="dialog" aria-labelledby="discover-twitterLabel" aria-hidden="true">
+    <div class="modal fade" id="sup-twitter" tabindex="-1" role="dialog" aria-labelledby="sup-twitterLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="discover-twitterLabel">What's up with...</h4>
+            <h4 class="modal-title" id="sup-twitterLabel">What's up with...</h4>
           </div>
           <div class="modal-body">
             {% load crispy_forms_tags %}
             <form method="post">
               {% csrf_token %}
-              {{ discover_form|crispy }}
-              <input type="submit" value="Buscar" id="submit-discover">
+              {{ sup_form|crispy }}
+              <input type="submit" value="Buscar" id="submit-sup" class="btn btn-default">
             </form>
-            <div id="discover-results">
+            <div id="sup-results">
             </div>
           </div>
           <div class="modal-footer">
@@ -96,7 +96,7 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <script id="discover-list" type="text/template">
+    <script id="sup-list" type="text/template">
       <% _.each(results, function(result) { %>
       <li class="tweet"><strong>@<%= result.screen_name %>: </strong> <%= result.text %></li>
       <% }) %>

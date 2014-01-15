@@ -166,7 +166,7 @@ class Common(Configuration):
         'django.contrib.messages.context_processors.messages',
         'django.core.context_processors.request',
         # Your stuff: custom template context processers go here
-        'thedevlabsweb.recommender.context_processors.discover_form',
+        'thedevlabsweb.recommender.context_processors.sup_form',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
@@ -273,8 +273,6 @@ class Common(Configuration):
 
 
     ########## Your common stuff: Below this line define 3rd party libary settings
-    TWITTER_APP_KEY = values.SecretValue()
-    TWITTER_APP_SECRET = values.SecretValue()
 
 
 class Local(Common):
@@ -302,6 +300,8 @@ class Local(Common):
     ########## end django-debug-toolbar
 
     ########## Your local stuff: Below this line define 3rd party libary settings
+    TWITTER_APP_KEY = 'YzeoGdgeEVQRJWRUtvkZDw'
+    TWITTER_APP_SECRET = 'YxWFkR2GBqx885qf9SV0rIggdywsGrvroJerTBq8wMk'
 
 
 class Production(Common):

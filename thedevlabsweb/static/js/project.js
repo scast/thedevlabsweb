@@ -17,14 +17,14 @@ $.ajaxSetup({
     }
 });
 
-/// Discover button handler.
-var discoverTemplate = _.template($('#discover-list').html());
-var discoverButton = function() {
+/// Whats up button handler.
+var supTemplate = _.template($('#sup-list').html());
+var supButton = function() {
     var query = $('input[name=q]').val();
     $.post('/search/', {
         "q": query
     }, function(data) {
-        $('#discover-results').html(discoverTemplate({
+        $('#sup-results').html(supTemplate({
             'results': data
         }));
         $('.tweet').linkify();
@@ -32,14 +32,11 @@ var discoverButton = function() {
 
 };
 
-
+// Main.
 $(function() {
-    $('.tweet').linkify({
-        'linkAttributes': {
-            'data-track': 'url'
-        }
+    $('#submit-sup').click(supButton);
+    $('#sup-results').on('click', '.linkified' , function(e) {
+        console.log("Valor", $(this).attr('href'))
+        return false;
     });
-
-    $('#submit-discover').click(discoverButton);
-
 });
