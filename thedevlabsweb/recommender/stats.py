@@ -23,7 +23,7 @@ def to_vector(u1, all_pks):
     return [d[pk] for pk in all_pks]
 
 
-def pearson_correlation(u1, u2, all_websites):
+def pearson_correlation(u1, u2):
     """Computes the Pearson product-moment correlation coefficient
     """
-    return pearsonr(u1, u2)
+    return pearsonr(u1, u2)[1]
