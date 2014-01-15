@@ -2,18 +2,24 @@ from django.shortcuts import render
 from django.conf import settings
 
 from vanilla import FormView
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, JSONResponseMixin
 from twython import Twython
 
 from .forms import TwitterSearchForm
 
 
-class TwitterSearchView(FormView, LoginRequiredMixin):
+class TwitterSearchView(LoginRequiredMixin, JSONResponseMixin, FormView):
     form_class = TwitterSearchForm
-    template_name = 'search.html'
+    require_json = True
+    # template_name = 'search.html'
     def form_valid(self, form):
         query = form.cleaned_data['q']
         twitter = Twython(settings.TWITTER_APP_KEY, settings.TWITTER_APP_SECRET)
         results = twitter.search(q=query)
-        context = self.get_context_data(results=results['statuses'], form=form)
-        return self.render_to_response(context)
+        return self.render_json_response([
+            {
+                'screen_name': result['user']['screen_name'],
+                'text': result['text']
+            }
+            for result in results['statuses']
+        ])
