@@ -13,7 +13,6 @@ from .stats import wilson_ci_lower_bound
 class RankedQuerySet(QuerySet):
     def ranked_for(self, user):
         seen = Score.objects.filter(user=user).values_list('website__pk', flat=True)
-        print 'Already seen', seen
         qs = self.exclude(pk__in=seen)
         return sorted(qs, key=lambda w: w.score)
 
@@ -51,6 +50,9 @@ class Score(models.Model):
     user = models.ForeignKey(User, related_name='scores')
     website = models.ForeignKey(Website, related_name='scores')
     value = models.SmallIntegerField(choices=VALUES)
+
+    def __unicode__(self):
+        return 'Website {0} for User {1}'.format(self.website, self.user)
 
     class Meta:
         unique_together = ('user', 'website')

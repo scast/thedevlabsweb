@@ -44,7 +44,6 @@ class URLGetView(LoginRequiredMixin, JSONResponseMixin, GenericView):
     def post(self, request, *args, **kwargs):
         user = request.user
         possible = Website.objects.ranked_for(user)
-        print possible
         if possible:
             return self.render_json_response(possible[0].serialized)
         return self.render_json_response({'status': 'done'})
