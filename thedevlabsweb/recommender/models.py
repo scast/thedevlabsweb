@@ -13,6 +13,7 @@ from .stats import wilson_ci_lower_bound
 class RankedQuerySet(QuerySet):
     def ranked_for(self, user):
         seen = Score.objects.filter(user=user).values_list('website__pk', flat=True)
+        print 'Already seen', seen
         qs = self.exclude(pk__in=seen)
         return sorted(qs, key=lambda w: w.score)
 
@@ -36,7 +37,8 @@ class Website(models.Model):
         return {
             'status': 'ok',
             'url': self.url,
-            'score': self.score
+            'score': self.score,
+            'pk': self.pk
         }
 
 

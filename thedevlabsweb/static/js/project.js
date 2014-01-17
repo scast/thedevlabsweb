@@ -41,7 +41,7 @@ var supSelectLink = function(e) {
         }
     });
     return false;
-}
+};
 
 // Discover button enable/disable
 
@@ -54,22 +54,59 @@ var discoverEnable = function() {
     $down.addClass('disabled');
     $discover.removeClass('disabled');
 
-}
+};
 
 var discoverScoreEnable = function() {
     $up.removeClass('disabled');
     $down.removeClass('disabled');
     $discover.addClass('disabled');
-}
+};
 
 var discoverClick = function() {
-    discoverScoreEnable();
-}
+    $.post('/recommender/discover/', function(data) {
+        if (data.status === 'ok') {
+            console.log(data.url)
+            $up.attr('data-pk', data.pk);
+            $down.attr('data-pk', data.pk);
+            discoverScoreEnable();
+        }
+        else if (data.status === 'done') {
+            console.log('No hay mas sitios web')
+        }
+        else {
+            console.log('Error.')
+        }
+    });
+};
 
-var discoverHandleScore = function() {
-    discoverEnable();
-    console.log('contacting server...');
-}
+
+var upClick = function() {
+    console.log('up');
+    $up.addClass('disabled');
+    $down.removeClass('disabled')
+    var pk= $up.attr('data-pk');
+    $.post('/recommender/discover/'+pk+'/like/');
+};
+
+var downClick = function() {
+    console.log('down');
+    $down.addClass('disabled');
+    $up.removeClass('disabled')
+    var pk= $down.attr('data-pk');
+    $.post('/recommender/discover/'+pk+'/dislike/');
+};
+
+var discoverHandleScore = function(value) {
+    return function() {
+        discoverEnable();
+        console.log('contacting server...');
+        if (value == 1)
+            upClick()
+        else
+            downClick()
+    }
+
+};
 
 
 // Main.
@@ -78,6 +115,6 @@ $(function() {
     $('#submit-sup').click(supButton);
     $('#sup-results').on('click', '.linkified' , supSelectLink);
     $discover.click(discoverClick);
-    $up.click(discoverHandleScore);
-    $down.click(discoverHandleScore);
+    $up.click(discoverHandleScore(1));
+    $down.click(discoverHandleScore(-1));
 });
